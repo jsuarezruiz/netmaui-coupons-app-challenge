@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="CouponsApp.Controls.TabView">
+    <ContentView.Resources>
+        <ResourceDictionary>
+
+            <Color x:Key="TabBackgroundColor">#F7F6FA</Color>
+            <Color x:Key="AccentButtonBackgroundColor">#6FC5FA</Color>
+
+            <Style x:Key="TabStripStyle" TargetType="Grid">
+                <Setter Property="BackgroundColor" Value="{StaticResource TabBackgroundColor}" />
+                <Setter Property="HeightRequest" Value="80" />
+                <Setter Property="VerticalOptions" Value="End" />
+            </Style>
+
+            <Style x:Key="MainTabStyle" TargetType="Border">
+                <Setter Property="Background" Value="{StaticResource AccentButtonBackgroundColor}" />
+                <Setter Property="StrokeThickness" Value="0" />
+                <Setter Property="HeightRequest" Value="80" />
+                <Setter Property="WidthRequest" Value="80" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="Margin" Value="0, 0, 0, 24" />
+            </Style>
+
+            <Style x:Key="TabItemLayoutStyle" TargetType="Grid">
+                <Setter Property="Margin" Value="24, 0" />
+            </Style>
+
+            <Style x:Key="TabItemIconStyle" TargetType="Image">
+                <Setter Property="HeightRequest" Value="48" />
+                <Setter Property="VerticalOptions" Value="Start" />
+            </Style>
+            
+            <Color x:Key="TabItemTextColor">#DADCF0</Color>
+            
+            <Style x:Key="TabItemTextStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource TabItemTextColor}" />
+                <Setter Property="FontSize" Value="9" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Start" />
+                <Setter Property="Margin" Value="0, 0, 0, 12" />
+            </Style>
+            
+            <Style x:Key="ScanIconStyle" TargetType="Image">
+                <Setter Property="Aspect" Value="AspectFit" />
+                <Setter Property="WidthRequest" Value="48" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <Grid>
+        <Grid 
+            ColumnDefinitions="Auto, *, Auto"
+            Style="{StaticResource TabStripStyle}">
+            <Grid
+                RowDefinitions="Auto, *"
+                Style="{StaticResource TabItemLayoutStyle}">
+                <Image 
+                    Aspect="AspectFit"
+                    Source="send_icon.png"
+                    Style="{StaticResource TabItemIconStyle}"/>
+                <Label
+                    Grid.Row="1"
+                    Text="Send Money"
+                    Style="{StaticResource TabItemTextStyle}"/>
+            </Grid>
+            <Grid 
+                Grid.Column="2"
+                RowDefinitions="Auto, *"
+                Style="{StaticResource TabItemLayoutStyle}">
+                <Image 
+                    Aspect="AspectFit"
+                    Source="services_icon.png"
+                    Style="{StaticResource TabItemIconStyle}"/>
+                <Label
+                    Grid.Row="1"
+                    Text="Services"
+                    Style="{StaticResource TabItemTextStyle}"/>
+            </Grid>
+        </Grid>
+        <Border
+            Style="{StaticResource MainTabStyle}">
+            <Border.StrokeShape>
+                <Ellipse />
+            </Border.StrokeShape>
+            <Image
+                Source="scan_icon.png" 
+                Style="{StaticResource ScanIconStyle}"/>
+        </Border>
+    </Grid>
+</ContentView>
