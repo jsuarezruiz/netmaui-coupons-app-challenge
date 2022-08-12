@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:CouponsApp.Behaviors"
+    xmlns:controls="clr-namespace:CouponsApp.Controls"
+    xmlns:converters="clr-namespace:CouponsApp.Converters"
+    xmlns:viewmodels="clr-namespace:CouponsApp.ViewModels"
+    xmlns:templates="clr-namespace:CouponsApp.Views.Templates"
+    x:Class="CouponsApp.Views.CouponsView"
+    Title="Coupons App">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Color x:Key="BackgroundColor">#EFF1F9</Color>
+
+            <Style x:Key="NavigationBarLayoutStyle" TargetType="Grid">
+                <Setter Property="Margin" Value="12, 0" />
+            </Style>
+            
+            <Style x:Key="CouponsLayoutStyle" TargetType="Grid">
+                <Setter Property="Margin" Value="24, 0" />
+            </Style>
+
+            <Style x:Key="CouponsHeaderLayoutStyle" TargetType="Grid">
+                <Setter Property="Margin" Value="24, 12, 24, 24" />
+            </Style>
+
+            <Style x:Key="NavigationIconStyle" TargetType="Image">
+                <Setter Property="Aspect" Value="AspectFit" />
+                <Setter Property="HeightRequest" Value="40" />
+            </Style>
+            
+            <Style x:Key="HeaderTextStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontSize" Value="18" />
+            </Style>
+
+            <Style x:Key="NotificationStyle" TargetType="Border">
+                <Setter Property="StrokeThickness" Value="0" />
+                <Setter Property="HeightRequest" Value="20" />
+                <Setter Property="WidthRequest" Value="20" />
+                <Setter Property="HorizontalOptions" Value="Start" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="Margin" Value="6, 0" />
+            </Style>
+
+            <Style x:Key="NotificationTextStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontFamily" Value="PoppinsRegular" />
+                <Setter Property="FontSize" Value="9" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+            <Style x:Key="MyCouponsTextStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontFamily" Value="PoppinsRegular" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="Margin" Value="0, 12" />
+            </Style>
+
+            <converters:IndexToMinimumConverter x:Key="IndexToMinimumConverter" />
+            <converters:IndexToMaximumConverter x:Key="IndexToMaximumConverter" />
+            <converters:IndexToTranslationConverter x:Key="IndexToTranslationConverter" />
+            
+            <Style TargetType="controls:TabView">
+                <Setter Property="VerticalOptions" Value="End" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <viewmodels:CouponsViewModel />
+    </ContentPage.BindingContext>
+    <Grid>
+        <ScrollView
+            BackgroundColor="{StaticResource BackgroundColor}">
+            <VisualElement.Behaviors>
+                <behaviors:ScrollViewScrollBehavior x:Name="ScrollBehavior" />
+            </VisualElement.Behaviors>
+            <Grid RowDefinitions="Auto, Auto, Auto, Auto">
+                <!-- NAVIGATION HEADER -->
+                <Grid
+                    ColumnDefinitions="*, Auto, Auto"
+                    Style="{StaticResource NavigationBarLayoutStyle}">
+                    <Image
+                        HorizontalOptions="Start"
+                        Source="back_icon.png"
+                        Style="{StaticResource NavigationIconStyle}"/>
+                    <Image
+                        Grid.Column="1"
+                        Source="search_icon.png"
+                        Style="{StaticResource NavigationIconStyle}"/>
+                    <Image
+                        Grid.Column="2"
+                        Source="menu_icon.png"
+                        Style="{StaticResource NavigationIconStyle}"/>
+                </Grid>
+                <!-- HEADER -->
+                <Grid
+                    Grid.Row="1"
+                    ColumnDefinitions="Auto, *"
+                    Style="{StaticResource CouponsHeaderLayoutStyle}">
+                    <Label 
+                        Text="Loyalty Cards"
+                        TextColor="LightGray"
+                        Style="{StaticResource HeaderTextStyle}"/>
+                    <Grid
+                        Grid.Column="1"
+                        ColumnDefinitions="Auto, *"
+                        HorizontalOptions="End">
+                        <Label          
+                            Text="Coupons"
+                            Style="{StaticResource HeaderTextStyle}"/>
+                        <Border
+                            Grid.Column="1"
+                            Background="#FFEAA833"
+                            Style="{StaticResource NotificationStyle}">
+                            <Border.StrokeShape>
+                                <Ellipse />
+                            </Border.StrokeShape>
+                            <Label 
+                                Text="2"
+                                Style="{StaticResource NotificationTextStyle}"/>
+                        </Border>
+                    </Grid>
+                </Grid>
+                <!-- DISCOVER -->
+                <Grid
+                    Grid.Row="2"
+                    RowDefinitions="Auto, *"
+                    Style="{StaticResource CouponsLayoutStyle}">
+                    <Grid
+                        ColumnDefinitions="Auto, Auto">
+                        <Label 
+                            Text="Discover"
+                            Style="{StaticResource HeaderTextStyle}"/>
+                    </Grid>
+                    <StackLayout
+                        Grid.Row="1"
+                        Orientation="Horizontal"
+                        BindableLayout.ItemsSource="{Binding Discover}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <templates:DiscoverItemTemplate />
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </Grid>
+                <!-- COUPONS LIST -->
+                <StackLayout
+                    Grid.Row="3"
+                    Style="{StaticResource CouponsLayoutStyle}">
+                    <Label 
+                        Text="My Discounts"
+                        Style="{StaticResource MyCouponsTextStyle}"/>
+                    <StackLayout
+                        BindableLayout.ItemsSource="{Binding Coupons}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <templates:CouponItemTemplate
+                                    x:Name="CouponItemTemplate"
+                                    TranslationY="{Binding Id, Converter={StaticResource IndexToTranslationConverter}}">
+                                    <VisualElement.Behaviors>
+                                        <behaviors:AnimateProgressDouble
+                                            BindingContext="{Binding BindingContext, Source={x:Reference CouponItemTemplate}}"
+                                            TargetProperty="VisualElement.Opacity"
+                                            Progress="{Binding ScrollY, Source={x:Reference ScrollBehavior}}" 
+                                            Minimum="{Binding Id, Converter={StaticResource IndexToMinimumConverter}}"
+                                            Maximum="{Binding Id, Converter={StaticResource IndexToMaximumConverter}}"
+                                            From="1"
+                                            To="0"/>
+                                        <behaviors:AnimateProgressDouble
+                                            BindingContext="{Binding BindingContext, Source={x:Reference CouponItemTemplate}}"
+                                            TargetProperty="VisualElement.Scale"
+                                            Progress="{Binding ScrollY, Source={x:Reference ScrollBehavior}}" 
+                                            Minimum="{Binding Id, Converter={StaticResource IndexToMinimumConverter}}"
+                                            Maximum="{Binding Id, Converter={StaticResource IndexToMaximumConverter}}"
+                                            From="1"
+                                            To="0.25"/>
+                                    </VisualElement.Behaviors>
+                                </templates:CouponItemTemplate>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </StackLayout>
+            </Grid>
+        </ScrollView>
+        <controls:TabView />
+    </Grid>
+</ContentPage>

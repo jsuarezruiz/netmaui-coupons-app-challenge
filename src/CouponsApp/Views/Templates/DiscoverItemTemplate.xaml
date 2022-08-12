@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="CouponsApp.Views.Templates.DiscoverItemTemplate"
+    xmlns:converters="clr-namespace:CouponsApp.Converters">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            
+            <converters:ColorToBrushConverter x:Key="ColorToBrushConverter" />
+
+            <Style x:Key="DiscoverBorderStyle" TargetType="Border">
+                <Setter Property="StrokeThickness" Value="0" />
+                <Setter Property="HeightRequest" Value="160" />
+                <Setter Property="WidthRequest" Value="120" />
+                <Setter Property="Margin" Value="0, 0, 6, 0" />
+            </Style>
+            
+            <Style x:Key="DiscoverLayoutStyle" TargetType="Grid">
+                <Setter Property="Padding" Value="12" />
+            </Style>
+            
+            <Style x:Key="DiscoverTitleStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />  <Setter Property="FontFamily" Value="PoppinsRegular" />
+                <Setter Property="FontFamily" Value="PoppinsRegular" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="HeightRequest" Value="40" />
+            </Style>
+            
+            <Style x:Key="DiscoverSubTitleStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontFamily" Value="PoppinsRegular" />
+                <Setter Property="FontSize" Value="10" />
+                <Setter Property="Opacity" Value="0.75" />
+            </Style>
+
+            <Style x:Key="DiscoverAdorner1Style" TargetType="Rectangle">
+                <Setter Property="HeightRequest" Value="100" />
+                <Setter Property="WidthRequest" Value="100" />
+                <Setter Property="Rotation" Value="45" />
+                <Setter Property="TranslationY" Value="60" />
+                <Setter Property="TranslationX" Value="24" />
+                <Setter Property="Opacity" Value="0.1" />
+            </Style>
+
+            <Style x:Key="DiscoverAdorner2Style" TargetType="Ellipse">
+                <Setter Property="HeightRequest" Value="24" />
+                <Setter Property="WidthRequest" Value="24" />
+                <Setter Property="Stroke" Value="White" />
+                <Setter Property="StrokeThickness" Value="4" />
+                <Setter Property="Opacity" Value="0.9" />
+                <Setter Property="HorizontalOptions" Value="End" />
+                <Setter Property="VerticalOptions" Value="End" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <Border
+        Background="{Binding Color}"
+        Style="{StaticResource DiscoverBorderStyle}">
+        <Border.StrokeShape>
+            <RoundRectangle
+                CornerRadius="12"/>
+        </Border.StrokeShape>
+        <Grid
+            RowDefinitions="Auto, *"
+            Style="{StaticResource DiscoverLayoutStyle}">
+            <Label 
+                Text="{Binding Title}"
+                Style="{StaticResource DiscoverTitleStyle}"/>
+            <Label 
+                Grid.Row="1"
+                Text="{Binding CouponsCount, StringFormat='{0} coupons'}"
+                Style="{StaticResource DiscoverSubTitleStyle}"/>
+            <Rectangle
+                Grid.RowSpan="2"
+                RadiusX="12"
+                RadiusY="12"
+                Fill="White"
+                Style="{StaticResource DiscoverAdorner1Style}"/>
+            <Ellipse
+                Grid.RowSpan="2"
+                Style="{StaticResource DiscoverAdorner2Style}"/>
+        </Grid>
+    </Border>
+</ContentView>

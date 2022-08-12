@@ -88,6 +88,10 @@
             <Border.StrokeShape>
                 <Ellipse />
             </Border.StrokeShape>
+            <Border.Shadow>
+                <Shadow 
+                    Opacity="0.25"/>
+            </Border.Shadow>
             <Image
                 Source="scan_icon.png" 
                 Style="{StaticResource ScanIconStyle}"/>

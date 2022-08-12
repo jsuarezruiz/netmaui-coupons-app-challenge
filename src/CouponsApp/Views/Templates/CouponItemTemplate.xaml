@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="CouponsApp.Views.Templates.CouponItemTemplate"
+    xmlns:behaviors="clr-namespace:CouponsApp.Behaviors">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            
+            <Style x:Key="CouponBorderStyle" TargetType="Border">
+                <Setter Property="HeightRequest" Value="150" />
+                <Setter Property="StrokeThickness" Value="0" />
+            </Style>
+            
+            <Style x:Key="CouponCompanyLogoStyle" TargetType="Image">
+                <Setter Property="HeightRequest" Value="24" />
+                <Setter Property="Aspect" Value="AspectFit" />
+                <Setter Property="Margin" Value="12" />
+            </Style>
+            
+            <Style x:Key="CouponTitleStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontSize" Value="10" />
+                <Setter Property="Margin" Value="12, 0" />
+            </Style>
+            
+            <Style x:Key="CouponDiscountStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontSize" Value="24" />
+                <Setter Property="Margin" Value="12, 6" />
+            </Style>
+
+            <Style x:Key="CouponImageStyle" TargetType="Image">
+                <Setter Property="Aspect" Value="AspectFill" />
+                <Setter Property="WidthRequest" Value="300" />
+                <Setter Property="HorizontalOptions" Value="End" />
+                <Setter Property="VerticalOptions" Value="End" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Border
+            Background="{Binding Color}"
+            Style="{StaticResource CouponBorderStyle}">
+            <Border.StrokeShape>
+                <RoundRectangle 
+                    CornerRadius="12" />
+            </Border.StrokeShape>
+            <Border.Shadow>
+                <Shadow  
+                    Offset="-1, -1"
+                    Opacity="0.5"/>
+            </Border.Shadow>
+            <Grid
+                ColumnDefinitions="Auto, *"
+                RowDefinitions="Auto, Auto, *">
+                <Image
+                    Source="{Binding CompanyLogo}"
+                    Style="{StaticResource CouponCompanyLogoStyle}"/>
+                <Label
+                    Grid.Row="1"
+                    Text="{Binding Title}"
+                    Style="{StaticResource CouponTitleStyle}"/>
+                <Label 
+                    Grid.Row="2"
+                    Text="{Binding Discount}"
+                    Style="{StaticResource CouponDiscountStyle}"/>
+                <Image
+                    Grid.Column="1"
+                    Grid.RowSpan="3"
+                    Source="{Binding Image}"
+                    Style="{StaticResource CouponImageStyle}"/>
+            </Grid>
+        </Border>
+    </ContentView.Content>
+</ContentView>
